@@ -1,0 +1,32 @@
+{
+  "sponsors": [
+    {
+      "name": "阿林",
+      "amount": 5,
+      "date": "2024-12-30",
+      "avatar": "/images/avatar/阿林.jpg",
+      "message": ""
+    },
+    {
+      "name": "汤姆猫儿",
+      "amount": 66,
+      "date": "2024-12-30",
+      "avatar": "/images/avatar/汤姆猫儿.jpg",
+      "message": ""
+    },
+    {
+      "name": "绿萝班长",
+      "amount": 6,
+      "date": "2024-12-30",
+      "avatar": "/images/avatar/绿萝班长.jpg",
+      "message": ""
+    },
+    {
+      "name": "lan",
+      "amount": 50,
+      "date": "2024-01-03",
+      "avatar": "/images/avatar/lan.jpg",
+      "message": ""
+    }
+  ]
+}
