@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>感谢支持 Leo Wang 的朋友们 | 赞赏记录</title>
+  <meta property="og:title" content="感谢支持 Leo Wang 的朋友们">
+  <meta property="og:description" content="感谢每一位支持者，您的鼓励让开源创作充满温度。查看赞赏记录 ❤️">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="/images/og-image.jpg">
+  <link rel="icon" href="/images/favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    async function loadSponsors() {
+      const sponsorsGrid = document.getElementById('sponsors-grid');
+      try {
+        const response = await fetch('/data/sponsors.json');
+        const data = await response.json();
+
+        data.sponsors.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+
+        sponsorsGrid.innerHTML = data.sponsors.map(sponsor => {
+          const avatarContent = sponsor.avatar ?
+            `<img src="${sponsor.avatar}" alt="${sponsor.name}" 
+             class="w-full h-full object-cover"
+             onerror="this.onerror=null; this.parentElement.innerHTML='<span class=\'text-xl text-gray-600\'>${sponsor.name[0]}</span>'">` :
+            `<span class="text-xl text-gray-600">${sponsor.name[0]}</span>`;
+
+          return `
+            <div class="flex items-center p-4 bg-white rounded-lg shadow-sm hover:shadow-md transition-transform hover:-translate-y-1">
+              <div class="w-10 h-10 flex items-center justify-center bg-gray-50 rounded-full overflow-hidden mr-4">
+                ${avatarContent}
+              </div>
+              <div>
+                <div class="font-medium text-gray-800">${sponsor.name}</div>
+                <div class="text-green-600 font-medium">￥${sponsor.amount}</div>
+                <div class="text-sm text-gray-500">${sponsor.date}</div>
+                ${sponsor.message ? `<div class="text-sm text-gray-600 italic mt-1">${sponsor.message}</div>` : ''}
+              </div>
+            </div>
+          `;
+        }).join('');
+      } catch (error) {
+        console.error('Error loading sponsors:', error);
+        sponsorsGrid.innerHTML = '<div class="text-red-500 p-4">加载赞赏记录失败</div>';
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', loadSponsors);
+  </script>
+</head>
+
+<body class="bg-gray-50">
+  <div class="max-w-3xl mx-auto px-4 py-8">
+    <h1 class="text-3xl font-bold text-center text-gray-800 mb-6">赞赏记录 / Sponsors</h1>
+
+    <div class="text-center mb-8">
+      <p class="text-gray-600">感谢以下朋友的支持与认可 🙏</p>
+    </div>
+
+    <!-- Sponsors List -->
+    <div class="bg-white rounded-lg shadow-sm p-6">
+      <div id="sponsors-grid" class="grid gap-4 md:grid-cols-2">
+        <div class="text-center text-gray-600 py-8">加载中...</div>
+      </div>
+    </div>
+
+    <footer class="text-center text-gray-600 mt-8 pt-8 border-t border-gray-200">
+      <p>感谢您对我个人工作的支持与认可！🙏</p>
+      <p class="mt-2">
+        <a href="/" class="text-blue-500 hover:text-blue-600 transition-colors">
+          返回首页
+        </a>
+      </p>
+    </footer>
+  </div>
+</body>
+
+</html>
